@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from 'react';
 import { getResultsFromHistory, formatTimestamp, clearHistory as clearHistoryUtil } from '../lib/utils';
-import { SpeedTestResult } from '../types';
 import { useLocalization } from '../hooks/useLocalization';
 
 // Fix: Moved icon definitions before the component and made them local to resolve declaration conflicts.
@@ -11,7 +10,7 @@ const JitterIcon = () => <svg xmlns="http://www.w3.org/2000/svg" className="h-6 
 
 const History = () => {
   const { t, language } = useLocalization();
-  const [history, setHistory] = useState<SpeedTestResult[]>([]);
+  const [history, setHistory] = useState([]);
 
   useEffect(() => {
     setHistory(getResultsFromHistory());

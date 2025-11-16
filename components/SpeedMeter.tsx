@@ -1,11 +1,6 @@
 import React from 'react';
 
-interface SpeedMeterProps {
-  speed: number;
-  status: string;
-}
-
-const SpeedMeter: React.FC<SpeedMeterProps> = ({ speed, status }) => {
+const SpeedMeter = ({ speed, status }) => {
   const maxSpeed = 200; // Max speed on the gauge in Mbps
   const speedPercentage = Math.min(speed / maxSpeed, 1);
   const rotation = speedPercentage * 180 - 90; // -90 to 90 degrees

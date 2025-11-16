@@ -1,7 +1,4 @@
-
-import { IPInfo } from '../types';
-
-export const getIPInfo = async (): Promise<IPInfo> => {
+export const getIPInfo = async () => {
   try {
     const response = await fetch('https://ip-api.com/json/?fields=query,isp,city,country');
     if (!response.ok) {

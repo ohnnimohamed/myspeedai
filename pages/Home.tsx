@@ -1,12 +1,9 @@
 import React, { useState, useCallback, useMemo } from 'react';
-import { GoogleGenAI } from "@google/genai";
 import { useLocalization } from '../hooks/useLocalization';
 import { getIPInfo } from '../services/ipService';
 import { runSpeedTest } from '../services/speedTestService';
 import { getAIAnalysis } from '../services/geminiService';
 import { saveResultsToHistory } from '../lib/utils';
-import { SpeedTestResult, TestStatus, IPInfo } from '../types';
-
 import SpeedMeter from '../components/SpeedMeter';
 import ResultCard from '../components/ResultCard';
 import ShareButtons from '../components/ShareButtons';
@@ -21,28 +18,28 @@ const GlobeIcon = () => <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w
 
 const Home = () => {
   const { t } = useLocalization();
-  const [status, setStatus] = useState<TestStatus>(TestStatus.Idle);
-  const [result, setResult] = useState<SpeedTestResult | null>(null);
-  const [ipInfo, setIpInfo] = useState<IPInfo | null>(null);
+  const [status, setStatus] = useState('idle');
+  const [result, setResult] = useState(null);
+  const [ipInfo, setIpInfo] = useState(null);
   const [currentSpeed, setCurrentSpeed] = useState(0);
   const [ping, setPing] = useState(0);
   const [jitter, setJitter] = useState(0);
   const [download, setDownload] = useState(0);
   const [upload, setUpload] = useState(0);
 
-  const isTesting = useMemo(() => status !== TestStatus.Idle && status !== TestStatus.Finished && status !== TestStatus.Error, [status]);
+  const isTesting = useMemo(() => status !== 'idle' && status !== 'finished' && status !== 'error', [status]);
 
-  const handleProgress = useCallback((progressStatus: TestStatus, value: number) => {
+  const handleProgress = useCallback((progressStatus, value) => {
     switch (progressStatus) {
-      case TestStatus.Ping:
+      case 'ping':
         setPing(value);
         setJitter(Math.round(value / 4 + Math.random() * 5)); // Fake jitter based on ping
         break;
-      case TestStatus.Download:
+      case 'download':
         setCurrentSpeed(value);
         setDownload(value);
         break;
-      case TestStatus.Upload:
+      case 'upload':
         setCurrentSpeed(value);
         setUpload(value);
         break;
@@ -50,7 +47,7 @@ const Home = () => {
   }, []);
 
   const startTest = useCallback(async () => {
-    setStatus(TestStatus.FetchingIP);
+    setStatus('fetching_ip');
     setResult(null);
     setCurrentSpeed(0);
     setPing(0);
@@ -67,10 +64,10 @@ const Home = () => {
         handleProgress(s, v);
       });
 
-      setStatus(TestStatus.Analyzing);
+      setStatus('analyzing');
       const aiAnalysis = await getAIAnalysis(testResults);
 
-      const finalResult: SpeedTestResult = {
+      const finalResult = {
         id: new Date().toISOString(),
         ...testResults,
         ipInfo: fetchedIpInfo,
@@ -80,21 +77,21 @@ const Home = () => {
 
       setResult(finalResult);
       saveResultsToHistory(finalResult);
-      setStatus(TestStatus.Finished);
+      setStatus('finished');
     } catch (error) {
       console.error("Speed test failed:", error);
-      setStatus(TestStatus.Error);
+      setStatus('error');
     }
   }, [handleProgress]);
   
   const getStatusText = () => {
       switch(status) {
-          case TestStatus.Ping: return t('status.ping');
-          case TestStatus.Download: return 'Mbps';
-          case TestStatus.Upload: return 'Mbps';
-          case TestStatus.Analyzing: return t('status.analyzing');
-          case TestStatus.Finished: return 'Mbps';
-          case TestStatus.FetchingIP: return t('status.fetching_ip');
+          case 'ping': return t('status.ping');
+          case 'download': return 'Mbps';
+          case 'upload': return 'Mbps';
+          case 'analyzing': return t('status.analyzing');
+          case 'finished': return 'Mbps';
+          case 'fetching_ip': return t('status.fetching_ip');
           default: return 'Mbps';
       }
   }
@@ -104,7 +101,7 @@ const Home = () => {
       <h1 className="sr-only">MySpeed AI: The Ultimate Internet Speed Test</h1>
       <div className="w-full max-w-4xl bg-card-light dark:bg-card-dark rounded-xl shadow-lg p-6 md:p-8">
         <div className="text-center mb-8">
-            <SpeedMeter speed={status === TestStatus.Download || status === TestStatus.Upload ? currentSpeed : (result?.download || 0) } status={getStatusText()} />
+            <SpeedMeter speed={status === 'download' || status === 'upload' ? currentSpeed : (result?.download || 0) } status={getStatusText()} />
         </div>
 
         <div className="text-center mb-8">
@@ -139,7 +136,7 @@ const Home = () => {
           </div>
         </div>
         
-        {status === TestStatus.Finished && result && (
+        {status === 'finished' && result && (
           <div className="mt-8 space-y-8 animate-fade-in">
              <div className="p-6 bg-blue-50 dark:bg-blue-900/20 rounded-lg">
               <h3 className="text-xl font-bold mb-2 text-primary dark:text-primary-dark">{t('home.ai_assistant')}</h3>

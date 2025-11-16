@@ -1,18 +1,11 @@
-
 import React, { createContext, useState, useEffect, useMemo } from 'react';
 
-type Theme = 'light' | 'dark';
+export const ThemeContext = createContext(undefined);
 
-interface ThemeContextType {
-  theme: Theme;
-  toggleTheme: () => void;
-}
-
-export const ThemeContext = createContext<ThemeContextType | undefined>(undefined);
-
-export const ThemeProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
-  const [theme, setTheme] = useState<Theme>(() => {
-    const savedTheme = localStorage.getItem('theme') as Theme | null;
+// FIX: Added type annotation for children prop to satisfy TypeScript.
+export const ThemeProvider = ({ children }: { children: any }) => {
+  const [theme, setTheme] = useState(() => {
+    const savedTheme = localStorage.getItem('theme');
     return savedTheme || 'light';
   });
 

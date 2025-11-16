@@ -1,8 +1,6 @@
-
 import { GoogleGenAI } from "@google/genai";
-import { SpeedTestResult } from '../types';
 
-export const getAIAnalysis = async (result: Omit<SpeedTestResult, 'id' | 'timestamp' | 'ipInfo'>): Promise<string> => {
+export const getAIAnalysis = async (result) => {
   if (!process.env.API_KEY) {
     console.error("API_KEY is not set.");
     return "AI analysis is currently unavailable. Please configure your API key.";

@@ -1,30 +1,21 @@
 import React, { createContext, useState, useEffect, useCallback, useMemo } from 'react';
 
-type Language = 'en' | 'fr' | 'ar';
-type Translations = Record<string, string>;
-
-interface LocalizationContextType {
-  language: Language;
-  setLanguage: (lang: Language) => void;
-  t: (key: string) => string;
-  dir: 'ltr' | 'rtl';
-}
-
-const initialTranslations: Record<Language, Translations> = {
+const initialTranslations = {
   en: {},
   fr: {},
   ar: {},
 };
 
-export const LocalizationContext = createContext<LocalizationContextType | undefined>(undefined);
+export const LocalizationContext = createContext(undefined);
 
-export const LocalizationProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
-  const [language, setLanguage] = useState<Language>(() => {
-    const savedLang = localStorage.getItem('language') as Language | null;
+// FIX: Added type annotation for children prop to satisfy TypeScript.
+export const LocalizationProvider = ({ children }: { children: any }) => {
+  const [language, setLanguage] = useState(() => {
+    const savedLang = localStorage.getItem('language');
     return savedLang || 'en';
   });
 
-  const [translations, setTranslations] = useState<Record<Language, Translations>>(initialTranslations);
+  const [translations, setTranslations] = useState(initialTranslations);
 
   const dir = useMemo(() => (language === 'ar' ? 'rtl' : 'ltr'), [language]);
 
@@ -55,11 +46,11 @@ export const LocalizationProvider: React.FC<{ children: React.ReactNode }> = ({ 
     fetchTranslations();
   }, []);
 
-  const t = useCallback((key: string): string => {
-    return translations[language][key] || key;
+  const t = useCallback((key) => {
+    return translations[language]?.[key] || key;
   }, [language, translations]);
 
-  const value = useMemo(() => ({ language, setLanguage, t, dir }), [language, t, dir]);
+  const value = useMemo(() => ({ language, setLanguage, t, dir }), [language, setLanguage, t, dir]);
 
   return <LocalizationContext.Provider value={value}>{children}</LocalizationContext.Provider>;
 };

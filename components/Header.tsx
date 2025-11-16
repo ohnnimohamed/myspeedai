@@ -80,7 +80,7 @@ const Header = () => {
                     <button
                       key={lang.code}
                       onClick={() => {
-                        setLanguage(lang.code as 'en' | 'fr' | 'ar');
+                        setLanguage(lang.code);
                         setLangDropdownOpen(false);
                       }}
                       className={`block w-full text-left px-4 py-2 text-sm ${

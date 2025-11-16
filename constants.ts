@@ -1,4 +1,3 @@
-
 export const GLOBAL_AVERAGE_SPEEDS = {
   ping: 40,
   jitter: 15,

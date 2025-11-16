@@ -1,16 +1,14 @@
-
 import React, { useEffect, useState } from 'react';
 import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer } from 'recharts';
 import { getResultsFromHistory } from '../lib/utils';
 import { useLocalization } from '../hooks/useLocalization';
 import { useTheme } from '../hooks/useTheme';
-import { SpeedTestResult } from '../types';
 import { GLOBAL_AVERAGE_SPEEDS } from '../constants';
 
 const Compare = () => {
   const { t } = useLocalization();
   const { theme } = useTheme();
-  const [latestResult, setLatestResult] = useState<SpeedTestResult | null>(null);
+  const [latestResult, setLatestResult] = useState(null);
 
   useEffect(() => {
     const history = getResultsFromHistory();

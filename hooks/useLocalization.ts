@@ -1,4 +1,3 @@
-
 import { useContext } from 'react';
 import { LocalizationContext } from '../context/LocalizationContext';
 

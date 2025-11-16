@@ -1,13 +1,7 @@
-
 import React from 'react';
-import { SpeedTestResult } from '../types';
 import { useLocalization } from '../hooks/useLocalization';
 
-interface ShareButtonsProps {
-  result: SpeedTestResult;
-}
-
-const ShareButtons: React.FC<ShareButtonsProps> = ({ result }) => {
+const ShareButtons = ({ result }) => {
   const { t } = useLocalization();
   const shareText = `I just tested my internet speed with MySpeed AI! Download: ${result.download.toFixed(2)} Mbps, Upload: ${result.upload.toFixed(2)} Mbps, Ping: ${result.ping} ms. Check yours!`;
   const url = window.location.href;
