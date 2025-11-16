@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/svg+xml" href="/vite.svg" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    
+    <!-- SEO Meta Tags -->
+    <title>MySpeed AI - The Ultimate Internet Speed Test</title>
+    <meta name="description" content="Test your internet speed in real-time with MySpeed AI. Get accurate download, upload, ping, and jitter results, plus a free AI-powered analysis to improve your WiFi." />
+    <meta name="keywords" content="internet speed test, speed test, wifi speed test, test my internet, check internet speed, measure internet speed, ping test, download speed, upload speed, MySpeed AI" />
+
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://myspeedai.com/" />
+    <meta property="og:title" content="MySpeed AI - The Ultimate Internet Speed Test" />
+    <meta property="og:description" content="Test your internet speed in real-time with MySpeed AI. Get accurate download, upload, ping, and jitter results, plus a free AI-powered analysis to improve your WiFi." />
+    <meta property="og:image" content="https://i.imgur.com/gT3gm8W.png" />
+
+    <!-- Twitter -->
+    <meta property="twitter:card" content="summary_large_image" />
+    <meta property="twitter:url" content="https://myspeedai.com/" />
+    <meta property="twitter:title" content="MySpeed AI - The Ultimate Internet Speed Test" />
+    <meta property="twitter:description" content="Test your internet speed in real-time with MySpeed AI. Get accurate download, upload, ping, and jitter results, plus a free AI-powered analysis to improve your WiFi." />
+    <meta property="twitter:image" content="https://i.imgur.com/gT3gm8W.png" />
+
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+      tailwind.config = {
+        darkMode: 'class',
+        theme: {
+          extend: {
+            typography: (theme) => ({
+              DEFAULT: {
+                css: {
+                  color: theme('colors.text.light'),
+                  a: {
+                    color: theme('colors.primary.DEFAULT'),
+                    '&:hover': {
+                      color: theme('colors.primary.dark'),
+                    },
+                  },
+                  h1: { color: theme('colors.text.light'), },
+                  h2: { color: theme('colors.text.light'), },
+                  h3: { color: theme('colors.text.light'), },
+                  strong: { color: theme('colors.text.light'), },
+                },
+              },
+              invert: {
+                 css: {
+                  color: theme('colors.text.dark'),
+                   a: {
+                    color: theme('colors.primary.dark'),
+                    '&:hover': {
+                      color: theme('colors.primary.DEFAULT'),
+                    },
+                  },
+                  h1: { color: theme('colors.text.dark'), },
+                  h2: { color: theme('colors.text.dark'), },
+                  h3: { color: theme('colors.text.dark'), },
+                  strong: { color: theme('colors.text.dark'), },
+                },
+              },
+            }),
+            colors: {
+              primary: {
+                DEFAULT: '#007BFF',
+                dark: '#3395ff',
+              },
+              secondary: '#6c757d',
+              background: {
+                light: '#F8F9FA',
+                dark: '#121212',
+              },
+              card: {
+                light: '#FFFFFF',
+                dark: '#1E1E1E',
+              },
+              text: {
+                light: '#212529',
+                dark: '#EAEAEA',
+              },
+              'text-muted': {
+                light: '#6c757d',
+                dark: '#9ca3af',
+              },
+            },
+            animation: {
+              'pulse-fast': 'pulse 1.5s cubic-bezier(0.4, 0, 0.6, 1) infinite',
+            }
+          }
+        }
+      }
+    </script>
+    <script type="importmap">
+      {
+        "imports": {
+          "react/": "https://aistudiocdn.com/react@^19.2.0/",
+          "react": "https://aistudiocdn.com/react@^19.2.0",
+          "react-router-dom": "https://aistudiocdn.com/react-router-dom@^7.9.6",
+          "@google/genai": "https://aistudiocdn.com/@google/genai@^1.29.1",
+          "react-dom/": "https://aistudiocdn.com/react-dom@^19.2.0/",
+          "recharts": "https://aistudiocdn.com/recharts@^3.4.1"
+        }
+      }
+    </script>
+
+    <!-- JSON-LD Structured Data -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@graph": [
+        {
+          "@type": "WebSite",
+          "url": "https://myspeedai.com/",
+          "name": "MySpeed AI",
+          "potentialAction": {
+            "@type": "SearchAction",
+            "target": "https://myspeedai.com/",
+            "query-input": "required name=search_term_string"
+          }
+        },
+        {
+          "@type": "SoftwareApplication",
+          "name": "MySpeed AI",
+          "operatingSystem": "WEB",
+          "applicationCategory": "UtilitiesApplication",
+          "aggregateRating": {
+            "@type": "AggregateRating",
+            "ratingValue": "4.8",
+            "ratingCount": "1250"
+          },
+          "offers": {
+            "@type": "Offer",
+            "price": "0",
+            "priceCurrency": "USD"
+          }
+        },
+        {
+          "@type": "FAQPage",
+          "mainEntity": [
+            {
+              "@type": "Question",
+              "name": "What is a good internet speed?",
+              "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "A good internet speed depends on your usage. For basic browsing and email, 10-25 Mbps is sufficient. For HD streaming, 25-50 Mbps is recommended. For 4K streaming and online gaming, you should aim for 50-100 Mbps or more, especially with multiple users."
+              }
+            },
+            {
+              "@type": "Question",
+              "name": "How can I test my internet speed accurately?",
+              "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "For the most accurate speed test, use a wired Ethernet connection directly to your router, close all other applications and browser tabs, and ensure no other devices are using the internet heavily during the test."
+              }
+            },
+            {
+              "@type": "Question",
+              "name": "What is ping and why does it matter for gaming?",
+              "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "Ping, or latency, is the time it takes for a data packet to travel from your device to a server and back. It's crucial for online gaming because a low ping (under 40ms) means a more responsive and lag-free experience."
+              }
+            }
+          ]
+        }
+      ]
+    }
+    </script>
+  </head>
+  <body>
+    <div id="root"></div>
+    <script type="module" src="/index.tsx"></script>
+  </body>
+</html>

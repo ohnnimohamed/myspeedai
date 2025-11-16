@@ -1,0 +1,7 @@
+{
+  "name": "MySpeed AI",
+  "description": "A modern web application to measure your internet speed in real-time, complete with an AI-powered analysis of your results, historical tracking, and tips for improvement.",
+  "requestFramePermissions": [
+    "geolocation"
+  ]
+}
